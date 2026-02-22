@@ -5,8 +5,8 @@ import time
 
 app = FastAPI()
 
-print("--- Initializing BGE Model on 3070 ---")
-model = SentenceTransformer('./models/bge-small-zh-v1.5', device="cuda")
+print("--- Initializing BGE Model on nvidia ---")
+model = SentenceTransformer('./models/bge-large-zh-v1.5', device="cuda")
 
 
 @app.post("/v1/embeddings")
@@ -26,6 +26,6 @@ async def get_embeddings(payload: dict = Body(...)):
     end_time = time.perf_counter()
     duration_ms = (end_time - start_time) * 1000
 
-    print(f"🚀 [3070 Inference] Processed {len(texts)} chunks | Time: {duration_ms:.2f}ms")
+    print(f"🚀 [nvidia Inference] Processed {len(texts)} chunks | Time: {duration_ms:.2f}ms")
 
     return embeddings.tolist()
